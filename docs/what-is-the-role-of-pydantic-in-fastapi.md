@@ -1,0 +1,1 @@
+Pydantic plays a crucial role in FastAPI by providing data validation and settings management using Python type annotations. It ensures that incoming data matches the expected types, reducing runtime errors. Pydantic models define how requests and responses should be structured, enabling automatic request body parsing, validation, serialization, and documentation.

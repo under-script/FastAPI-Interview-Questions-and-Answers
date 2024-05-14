@@ -1,0 +1,4 @@
+fastapi[all]
+SQLAlchemy
+sqladmin[full]
+mkdocs-material
