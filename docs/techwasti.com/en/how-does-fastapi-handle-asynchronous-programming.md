@@ -1,0 +1,1 @@
+FastAPI Python asyncio kutubxonasidan foydalangan holda asinxron dasturlashni to'liq qo'llab-quvvatlaydi. U `async def` sintaksisi yordamida asinxron ishlash imkonini beradi. FastAPI-dagi asinxron qo'llab-quvvatlash unumdorlikni sezilarli darajada oshiradi, bu sizning API-ga sezgirlikni yo'qotmasdan bir vaqtning o'zida ko'proq foydalanuvchilarni boshqarish imkonini beradi.
