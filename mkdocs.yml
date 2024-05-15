@@ -90,15 +90,6 @@ nav:
       - How can you serve static files with FastAPI?: interviewprep.org/how-can-you-serve-static-files-with-fastapi.md
       - What are some of the security features provided by FastAPI and how can they be utilized?: interviewprep.org/what-are-some-of-the-security-features-provided-by-fastapi-and-how-can-they-be-utilized.md
       - How can FastAPI be used with async and await, and what benefits does this provide?: interviewprep.org/how-can-fastapi-be-used-with-async-and-await-and-what-benefits-does-this-provide.md
-plugins:
-  - social
-
-extra:
-  social:
-    - icon: fontawesome/brands/github-alt
-      link: https://github.com/under-script
-    - icon: fontawesome/brands/telegram
-      link: https://t.me/toEpamMiddle
 
 copyright: |
   &copy; 2024 <a href="https://github.com/under-script"  target="_blank" rel="noopener">Yunusov Abdulmajid</a>
