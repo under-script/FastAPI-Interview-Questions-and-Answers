@@ -4,3 +4,4 @@ sqladmin[full]
 mkdocs-material
 text-to-speech
 openai
+mkdocs-material[imaging]

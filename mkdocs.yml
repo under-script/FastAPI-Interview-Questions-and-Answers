@@ -1,9 +1,104 @@
 site_name: FastAPI Interview Questions and Answers
-site_url: https://mydomain.org/mysite
+#site_url: https://mydomain.org/mysite
 theme:
   name: material
+  mode: dark
   font:
-    text: Avenir Regular
+#    text: Avenir Regular
+    text: Roboto Mono
 #    Avenir Regular
-    code: Avenir Regular
+#    code: Avenir Regular
+    code: Roboto Mono
 #    Roboto Mono
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - toc.integrate
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+    - content.code.annotation
+    - content.code.copy
+  language: en
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+      accent: purple
+    - scheme: slate
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+      accent: lime
+
+# Navigation structure
+nav:
+  - techwasti.com:
+      - Introduction: techwasti.com/index.md
+      - What is FastAPI, and what are its key features?: techwasti.com/what-is-fastapi-and-what-are-its-key-features.md
+      - How does FastAPI handle request validation?: techwasti.com/how-does-fastapi-handle-request-validation.md
+      - What is dependency injection in FastAPI?: techwasti.com/what-is-dependency-injection-in-fastapi.md
+      - How does FastAPI handle asynchronous programming?: techwasti.com/how-does-fastapi-handle-asynchronous-programming.md
+      - How does FastAPI generate interactive API documentation?: techwasti.com/how-does-fastapi-generate-interactive-api-documentation.md
+      - How can you handle authentication and authorization in FastAPI?: techwasti.com/how-can-you-handle-authentication-and-authorization-in-fastapi.md
+      - How does FastAPI handle file uploads?: techwasti.com/how-does-fastapi-handle-file-uploads.md
+      - Can FastAPI handle WebSocket communication?: techwasti.com/can-fastapi-handle-websocket-communication.md
+      - What is the difference between FastAPI and Flask?: techwasti.com/what-is-the-difference-between-fastapi-and-flask.md
+      - How can you deploy a FastAPI application?: techwasti.com/how-can-you-deploy-a-fastapi-application.md
+      - Does FastAPI support database integration?: techwasti.com/does-fastapi-support-database-integration.md
+      - How can you handle cross-origin resource sharing (CORS) in FastAPI?: techwasti.com/how-can-you-handle-cross-origin-resource-sharing-cors-in-fastapi.md
+  - javainuse.com:
+      - Introduction: javainuse.com/index.md
+      - Can you explain what FastAPI is and its main features?: javainuse.com/can-you-explain-what-fastapi-is-and-its-main-features.md
+      - Have you worked with FastAPI before? If so, can you provide examples of how you have used it?: javainuse.com/have-you-worked-with-fastapi-before-if-so-can-you-provide-examples-of-how-you-have-used-it.md
+      - What are the main benefits of using FastAPI over other frameworks?: javainuse.com/what-are-the-main-benefits-of-using-fastapi-over-other-frameworks.md
+      - Can you describe the process of setting up a FastAPI application from scratch?: javainuse.com/can-you-describe-the-process-of-setting-up-a-fastapi-application-from-scratch.md
+      - How would you handle authentication and authorization in a FastAPI project?: javainuse.com/how-would-you-handle-authentication-and-authorization-in-a-fastapi-project.md
+      - Have you used FastAPI to build RESTful APIs? If so, can you explain the process and any challenges you faced?: javainuse.com/have-you-used-fastapi-to-build-restful-apis-if-so-can-you-explain-the-process-and-any-challenges-you-faced.md
+      - Can you give an example of how you would implement data validation and serialization in a FastAPI application?: javainuse.com/can-you-give-an-example-of-how-you-would-implement-data-validation-and-serialization-in-a-fastapi-application.md
+      - How would you handle error handling and exception handling in a FastAPI project?: javainuse.com/how-would-you-handle-error-handling-and-exception-handling-in-a-fastapi-project.md
+      - Can you explain how you would perform database operations using FastAPI and an ORM like SQLAlchemy?: javainuse.com/can-you-explain-how-you-would-perform-database-operations-using-fastapi-and-an-orm-like-sqlalchemy.md
+      - Have you used dependency injection in a FastAPI project? If so, how did you implement it?: javainuse.com/have-you-used-dependency-injection-in-a-fastapi-project-if-so-how-did-you-implement-it.md
+      - How would you approach testing a FastAPI application? Are there any specific testing frameworks or tools you would use?: javainuse.com/how-would-you-approach-testing-a-fastapi-application-are-there-any-specific-testing-frameworks-or-tools-you-would-use.md
+      - Can you provide an example of how you would deploy a FastAPI application in a production environment?: javainuse.com/can-you-provide-an-example-of-how-you-would-deploy-a-fastapi-application-in-a-production-environment.md
+  - interviewprep.org:
+      - Introduction: interviewprep.org/index.md
+      - Can you explain the key differences between FastAPI and Flask and why you would choose FastAPI over Flask?: interviewprep.org/can-you-explain-the-key-differences-between-fastapi-and-flask-and-why-you-would-choose-fastapi-over-flask.md
+      - What is the role of Pydantic in FastAPI?: interviewprep.org/what-is-the-role-of-pydantic-in-fastapi.md
+      - Can you explain how you would implement authentication and authorization in FastAPI?: interviewprep.org/can-you-explain-how-you-would-implement-authentication-and-authorization-in-fastapi.md
+      - How does FastAPI take advantage of Python 3.6 type declarations?: interviewprep.org/how-does-fastapi-take-advantage-of-python-3-6-type-declarations.md
+      - What are some of the main advantages of using FastAPI for a project, and what are some potential drawbacks?: interviewprep.org/what-are-some-of-the-main-advantages-of-using-fastapi-for-a-project-and-what-are-some-potential-drawbacks.md
+      - How would you handle exception handling and custom error responses in FastAPI?: interviewprep.org/how-would-you-handle-exception-handling-and-custom-error-responses-in-fastapi.md
+      - How does FastAPI integrate with SQLAlchemy for database connection and ORM?: interviewprep.org/how-does-fastapi-integrate-with-sqlalchemy-for-database-connection-and-orm.md
+      - How would you handle file uploads in FastAPI?: interviewprep.org/how-would-you-handle-file-uploads-in-fastapi.md
+      - FastAPI is built on top of Starlette for the web parts and Pydantic for the data parts. Can you explain how these work together to provide FastAPI’s functionality?: interviewprep.org/fastapi-is-built-on-top-of-starlette-for-the-web-parts-and-pydantic-for-the-data-parts-can-you-explain-how-these-work-together-to-provide-fastapi-s-functionality.md
+      - How would you implement rate limiting in FastAPI?: interviewprep.org/how-would-you-implement-rate-limiting-in-fastapi.md
+      - How does FastAPI handle serialization and validation of data?: interviewprep.org/how-does-fastapi-handle-serialization-and-validation-of-data.md
+      - Can you explain how you would set up unit tests for a FastAPI application?: interviewprep.org/can-you-explain-how-you-would-set-up-unit-tests-for-a-fastapi-application.md
+      - How would you create a background task in FastAPI?: interviewprep.org/how-would-you-create-a-background-task-in-fastapi.md
+      - Could you demonstrate a case where you would prefer to use HTTP protocol directly instead of FastAPI’s dependency injection?: interviewprep.org/could-you-demonstrate-a-case-where-you-would-prefer-to-use-http-protocol-directly-instead-of-fastapi-s-dependency-injection.md
+      - Can you describe how you would handle CORS (Cross-Origin Resource Sharing) in FastAPI?: interviewprep.org/can-you-describe-how-you-would-handle-cors-cross-origin-resource-sharing-in-fastapi.md
+      - How do FastAPI’s response models work and what benefits do they provide?: interviewprep.org/how-do-fastapi-s-response-models-work-and-what-benefits-do-they-provide.md
+      - How would you deploy a FastAPI application to a production environment?: interviewprep.org/how-would-you-deploy-a-fastapi-application-to-a-production-environment.md
+      - Can you explain how path parameters and query parameters are used in FastAPI?: interviewprep.org/can-you-explain-how-path-parameters-and-query-parameters-are-used-in-fastapi.md
+      - What features does FastAPI provide for form handling?: interviewprep.org/what-features-does-fastapi-provide-for-form-handling.md
+      - How can you use middleware with FastAPI?: interviewprep.org/how-can-you-use-middleware-with-fastapi.md
+      - How does FastAPI integrate with GraphQL?: interviewprep.org/how-does-fastapi-integrate-with-graphql.md
+      - How does FastAPI handle cookies and sessions?: interviewprep.org/how-does-fastapi-handle-cookies-and-sessions.md
+      - How can you serve static files with FastAPI?: interviewprep.org/how-can-you-serve-static-files-with-fastapi.md
+      - What are some of the security features provided by FastAPI and how can they be utilized?: interviewprep.org/what-are-some-of-the-security-features-provided-by-fastapi-and-how-can-they-be-utilized.md
+      - How can FastAPI be used with async and await, and what benefits does this provide?: interviewprep.org/how-can-fastapi-be-used-with-async-and-await-and-what-benefits-does-this-provide.md
+plugins:
+  - social
+
+extra:
+  social:
+    - icon: fontawesome/brands/github-alt
+      link: https://github.com/under-script
+    - icon: fontawesome/brands/telegram
+      link: https://t.me/toEpamMiddle
+
+copyright: |
+  &copy; 2024 <a href="https://github.com/under-script"  target="_blank" rel="noopener">Yunusov Abdulmajid</a>
