@@ -1,0 +1,1 @@
+Yes, FastAPI supports WebSocket communication through the use of the `WebSocket` class. You can define WebSocket endpoints by using the `WebSocket` class as a parameter in your path operations. FastAPI simplifies WebSocket handling, allowing you to build real-time applications and bidirectional communication between clients and servers.

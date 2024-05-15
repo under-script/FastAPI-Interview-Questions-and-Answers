@@ -1,0 +1,1 @@
+FastAPI includes built-in support for handling Cross-Origin Resource Sharing (CORS) to enable secure communication between different domains. You can configure CORS settings by using the `fastapi.middleware.cors` module. FastAPI allows you to specify the allowed origins, methods, headers, and other CORS-related settings to control access to your API.

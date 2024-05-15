@@ -1,0 +1,1 @@
+FastAPI provides convenient ways to handle file uploads. You can define an endpoint that accepts file uploads using the `UploadFile` type from the `fastapi` module. FastAPI automatically handles the file upload process, including storing the file on the server and providing you with access to the uploaded file's metadata and contents.
