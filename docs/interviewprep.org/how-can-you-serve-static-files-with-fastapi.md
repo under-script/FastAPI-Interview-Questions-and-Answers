@@ -6,4 +6,5 @@ from starlette.staticfiles import StaticFiles
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 ```
+
 In this code, “/static” is the path where your app will look for static files. “directory” is the folder with your static files.
