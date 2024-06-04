@@ -1,0 +1,1617 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../how-would-you-handle-file-uploads-in-fastapi/">
+      
+      
+        <link rel="next" href="../how-would-you-implement-rate-limiting-in-fastapi/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.25">
+    
+    
+      
+        <title>FastAPI is built on top of Starlette for the web parts and Pydantic for the data parts. Can you explain how these work together to provide FastAPI’s functionality? - FastAPI Interview Questions and Answers</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6543a935.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto Mono";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="FastAPI Interview Questions and Answers" class="md-header__button md-logo" aria-label="FastAPI Interview Questions and Answers" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            FastAPI Interview Questions and Answers
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              FastAPI is built on top of Starlette for the web parts and Pydantic for the data parts. Can you explain how these work together to provide FastAPI’s functionality?
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../techwasti.com/" class="md-tabs__link">
+          
+  
+  techwasti.com
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../javainuse.com/" class="md-tabs__link">
+          
+  
+  javainuse.com
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  interviewprep.org
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="FastAPI Interview Questions and Answers" class="md-nav__button md-logo" aria-label="FastAPI Interview Questions and Answers" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    FastAPI Interview Questions and Answers
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    techwasti.com
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            techwasti.com
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../techwasti.com/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../techwasti.com/what-is-fastapi-and-what-are-its-key-features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What is FastAPI, and what are its key features?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../techwasti.com/how-does-fastapi-handle-request-validation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How does FastAPI handle request validation?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../techwasti.com/what-is-dependency-injection-in-fastapi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What is dependency injection in FastAPI?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../techwasti.com/how-does-fastapi-handle-asynchronous-programming/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How does FastAPI handle asynchronous programming?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../techwasti.com/how-does-fastapi-generate-interactive-api-documentation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How does FastAPI generate interactive API documentation?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../techwasti.com/how-can-you-handle-authentication-and-authorization-in-fastapi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How can you handle authentication and authorization in FastAPI?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../techwasti.com/how-does-fastapi-handle-file-uploads/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How does FastAPI handle file uploads?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../techwasti.com/can-fastapi-handle-websocket-communication/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Can FastAPI handle WebSocket communication?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../techwasti.com/what-is-the-difference-between-fastapi-and-flask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What is the difference between FastAPI and Flask?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../techwasti.com/how-can-you-deploy-a-fastapi-application/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How can you deploy a FastAPI application?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../techwasti.com/does-fastapi-support-database-integration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Does FastAPI support database integration?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../techwasti.com/how-can-you-handle-cross-origin-resource-sharing-cors-in-fastapi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How can you handle cross-origin resource sharing (CORS) in FastAPI?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    javainuse.com
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            javainuse.com
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javainuse.com/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javainuse.com/can-you-explain-what-fastapi-is-and-its-main-features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Can you explain what FastAPI is and its main features?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javainuse.com/have-you-worked-with-fastapi-before-if-so-can-you-provide-examples-of-how-you-have-used-it/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Have you worked with FastAPI before? If so, can you provide examples of how you have used it?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javainuse.com/what-are-the-main-benefits-of-using-fastapi-over-other-frameworks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What are the main benefits of using FastAPI over other frameworks?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javainuse.com/can-you-describe-the-process-of-setting-up-a-fastapi-application-from-scratch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Can you describe the process of setting up a FastAPI application from scratch?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javainuse.com/how-would-you-handle-authentication-and-authorization-in-a-fastapi-project/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How would you handle authentication and authorization in a FastAPI project?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javainuse.com/have-you-used-fastapi-to-build-restful-apis-if-so-can-you-explain-the-process-and-any-challenges-you-faced/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Have you used FastAPI to build RESTful APIs? If so, can you explain the process and any challenges you faced?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javainuse.com/can-you-give-an-example-of-how-you-would-implement-data-validation-and-serialization-in-a-fastapi-application/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Can you give an example of how you would implement data validation and serialization in a FastAPI application?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javainuse.com/how-would-you-handle-error-handling-and-exception-handling-in-a-fastapi-project/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How would you handle error handling and exception handling in a FastAPI project?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javainuse.com/can-you-explain-how-you-would-perform-database-operations-using-fastapi-and-an-orm-like-sqlalchemy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Can you explain how you would perform database operations using FastAPI and an ORM like SQLAlchemy?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javainuse.com/have-you-used-dependency-injection-in-a-fastapi-project-if-so-how-did-you-implement-it/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Have you used dependency injection in a FastAPI project? If so, how did you implement it?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javainuse.com/how-would-you-approach-testing-a-fastapi-application-are-there-any-specific-testing-frameworks-or-tools-you-would-use/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How would you approach testing a FastAPI application? Are there any specific testing frameworks or tools you would use?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javainuse.com/can-you-provide-an-example-of-how-you-would-deploy-a-fastapi-application-in-a-production-environment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Can you provide an example of how you would deploy a FastAPI application in a production environment?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    interviewprep.org
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            interviewprep.org
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../can-you-explain-the-key-differences-between-fastapi-and-flask-and-why-you-would-choose-fastapi-over-flask.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Can you explain the key differences between FastAPI and Flask and why you would choose FastAPI over Flask?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../what-is-the-role-of-pydantic-in-fastapi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What is the role of Pydantic in FastAPI?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../can-you-explain-how-you-would-implement-authentication-and-authorization-in-fastapi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Can you explain how you would implement authentication and authorization in FastAPI?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-does-fastapi-take-advantage-of-python-3-6-type-declarations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How does FastAPI take advantage of Python 3.6 type declarations?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../what-are-some-of-the-main-advantages-of-using-fastapi-for-a-project-and-what-are-some-potential-drawbacks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What are some of the main advantages of using FastAPI for a project, and what are some potential drawbacks?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-would-you-handle-exception-handling-and-custom-error-responses-in-fastapi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How would you handle exception handling and custom error responses in FastAPI?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-does-fastapi-integrate-with-sqlalchemy-for-database-connection-and-orm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How does FastAPI integrate with SQLAlchemy for database connection and ORM?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-would-you-handle-file-uploads-in-fastapi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How would you handle file uploads in FastAPI?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    FastAPI is built on top of Starlette for the web parts and Pydantic for the data parts. Can you explain how these work together to provide FastAPI’s functionality?
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-would-you-implement-rate-limiting-in-fastapi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How would you implement rate limiting in FastAPI?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-does-fastapi-handle-serialization-and-validation-of-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How does FastAPI handle serialization and validation of data?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../can-you-explain-how-you-would-set-up-unit-tests-for-a-fastapi-application/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Can you explain how you would set up unit tests for a FastAPI application?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-would-you-create-a-background-task-in-fastapi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How would you create a background task in FastAPI?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../could-you-demonstrate-a-case-where-you-would-prefer-to-use-http-protocol-directly-instead-of-fastapi-s-dependency-injection/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Could you demonstrate a case where you would prefer to use HTTP protocol directly instead of FastAPI’s dependency injection?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../can-you-describe-how-you-would-handle-cors-cross-origin-resource-sharing-in-fastapi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Can you describe how you would handle CORS (Cross-Origin Resource Sharing) in FastAPI?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-do-fastapi-s-response-models-work-and-what-benefits-do-they-provide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How do FastAPI’s response models work and what benefits do they provide?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-would-you-deploy-a-fastapi-application-to-a-production-environment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How would you deploy a FastAPI application to a production environment?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../can-you-explain-how-path-parameters-and-query-parameters-are-used-in-fastapi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Can you explain how path parameters and query parameters are used in FastAPI?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../what-features-does-fastapi-provide-for-form-handling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What features does FastAPI provide for form handling?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-can-you-use-middleware-with-fastapi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How can you use middleware with FastAPI?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-does-fastapi-integrate-with-graphql/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How does FastAPI integrate with GraphQL?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-does-fastapi-handle-cookies-and-sessions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How does FastAPI handle cookies and sessions?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-can-you-serve-static-files-with-fastapi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How can you serve static files with FastAPI?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../what-are-some-of-the-security-features-provided-by-fastapi-and-how-can-they-be-utilized/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What are some of the security features provided by FastAPI and how can they be utilized?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-can-fastapi-be-used-with-async-and-await-and-what-benefits-does-this-provide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How can FastAPI be used with async and await, and what benefits does this provide?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>FastAPI is built on top of Starlette for the web parts and Pydantic for the data parts. Can you explain how these work together to provide FastAPI’s functionality?</h1>
+
+<p>FastAPI utilizes Starlette for web routing and Pydantic for data validation and serialization. When a request is made, Starlette handles the HTTP specifics, such as path operations and requests/responses. It also provides asynchronous capabilities. Pydantic comes into play by validating incoming JSON data against predefined models, ensuring type correctness. If valid, it serializes the data into Python types that can be used in your application. These two components work together to provide FastAPI’s core functionality: fast, easy-to-use, and robust API development with automatic interactive documentation.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2024 <a href="https://github.com/under-script"  target="_blank" rel="noopener">Yunusov Abdulmajid</a>
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "toc.integrate", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.081f42fc.min.js"></script>
+      
+    
+  </body>
+</html>
