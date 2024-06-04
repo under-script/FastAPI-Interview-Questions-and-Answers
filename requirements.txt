@@ -1,6 +1,2 @@
-fastapi[all]
-SQLAlchemy
-sqladmin[full]
 mkdocs-material
-text-to-speech
-openai
+mkdocs
